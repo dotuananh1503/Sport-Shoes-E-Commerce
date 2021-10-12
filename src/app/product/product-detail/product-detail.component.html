@@ -1,0 +1,129 @@
+<div class="container" *ngIf="product">
+    <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-12 col-12">
+            <div class="slider-for">
+                <div class="img__product">
+                    <img src="{{ product.imagePath }}" alt="">
+                </div>
+               <!-- <div class="img__product">
+                    <img src="/assets/images/804352_02_d55075307f0c4258806cf2830a0869f8_master.jpg" alt="">
+                </div>
+                <div class="img__product">
+                    <img src="/assets/images/804352_02_d55075307f0c4258806cf2830a0869f8_master.jpg" alt="">
+                </div>
+                <div class="img__product">
+                    <img src="/<assets/images/804352_02_d55075307f0c4258806cf2830a0869f8_master.jpg" alt="">
+                </div> -->
+            </div>
+
+            <div class="slider-nav">
+<!--                 <div class="img__product">
+                    <img src="/assets/images/804352_02_d55075307f0c4258806cf2830a0869f8_master.jpg" width="120px" height="120px" alt="">
+                </div>
+                <div class="img__product">
+                    <img src="/assets/images/804352_02_d55075307f0c4258806cf2830a0869f8_master.jpg" width="120px" height="120px" alt="">
+                </div>
+                <div class="img__product">
+                    <img src="/assets/images/804352_02_d55075307f0c4258806cf2830a0869f8_master.jpg" width="120px" height="120px" alt="">
+                </div>
+                <div class="img__product">
+                    <img src="/assets/images/804352_02_d55075307f0c4258806cf2830a0869f8_master.jpg" width="120px" height="120px" alt="">
+                </div> -->
+            </div>
+            <div class="product__description">
+                <h2>Mô tả</h2>
+                <div class="description__content">
+                    <p><span>Hiện đại và thời trang khi diện item mới của Nike. Màu sắc lạ mắt, chất liệu thoáng mát, nhẹ nhàng, phù hợp với những chàng trai yêu phong cách sports.</span><br><br></p>
+                    <ul>
+                        <li>Chất liệu cao cấp EVA, PU, Cushlon, Phylon.</li>
+                        <li>Bền, chống bám bẩn, dễ dàng lau chùi. Mũi giày đầy đặn, form dáng chuẩn.</li>
+                        <li>Bảo vệ đầu ngón chân khi hoạt động. Có lớp lót đệm bên trong.</li>
+                        <li>Êm, di chuyển nhiều không bị đau chân. Cổ giày thiết kế đơn giản, vừa vặn.</li>
+                        <li>Di chuyển dễ dàng, thoải mái.</li>
+                        <li>Đế bằng chất liệu cao su</li>
+                        <li>{{ product.desc }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12 col-12">
+            <div class="product__desc">
+                <div class="product__title">
+                    <h1>{{ product.productname }}</h1>
+                    <span id="pro_sku">Thương hiệu: {{ product.brand }}</span>        
+                </div>
+                <div class="product__title">
+                    <span class="pro__price">{{ product.price | moneypipe }}</span>
+                </div>
+                <form action="">
+                    <div class="group-filter" aria-expanded="true">
+                        <div class="layered__subtitle dropdown-filter"><span>Kích thước</span><span class="icon-control"><i class="fa fa-minus"></i></span></div>
+                        <div class="layered-content filter-size s-filter">
+                            
+                            <ul class="check-box-list clearfix">
+                                
+                                <li>
+                                    <input type="checkbox" id="data-size-p1" value="35" name="size-filter" data-size="(variant:product=35)">
+                                    <label for="data-size-p1">35</label>   
+                                </li>
+                                
+                                <li>
+                                    <input type="checkbox" id="data-size-p2" value="36" name="size-filter" data-size="(variant:product=36)">
+                                    <label for="data-size-p2">36</label>   
+                                </li>
+                                
+                                <li>
+                                    <input type="checkbox" id="data-size-p3" value="37" name="size-filter" data-size="(variant:product=37)">
+                                    <label for="data-size-p3">37</label>   
+                                </li>
+                                
+                                <li>
+                                    <input type="checkbox" id="data-size-p4" value="38" name="size-filter" data-size="(variant:product=38)">
+                                    <label for="data-size-p4">38</label>   
+                                </li>
+                                
+                                <li>
+                                    <input type="checkbox" id="data-size-p5" value="39" name="size-filter" data-size="(variant:product=39)">
+                                    <label for="data-size-p5">39</label>   
+                                </li>
+                                
+                                <li>
+                                    <input type="checkbox" id="data-size-p6" value="40" name="size-filter" data-size="(variant:product=40)">
+                                    <label for="data-size-p6">40</label>   
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="button__holder">
+    <!--                     <div class="btn__register">
+                            <button type="submit">
+                                <span>Thêm vào giỏ</span>
+                            </button>
+                        </div> -->
+                        <div class="btn__register">
+                            <button (click)="handleAddToCart()">
+                                <span>Thêm vào giỏ hàng</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <mat-tab-group>
+        <mat-tab label="Sản phẩm liên quan">
+            <div class="wrapping__header__home">
+                <h2><a href="">Sản phẩm liên quan</a></h2>
+            </div>
+            <app-product-list></app-product-list>
+        </mat-tab>
+        <mat-tab label="Bình luận">
+            <div class="showComment" *ngFor="let comment of comments">
+                <p id="name">{{ comment[0].name }}</p>
+                <p>{{ comment[0].content }}</p><p id="time">lúc: {{ comment[0].date | date: "h:mm a, dd-MM-yyyy" }}</p>
+            </div>
+            <app-product-comment></app-product-comment>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,0 +1,83 @@
+.cart__title
+{
+    margin-top: 40px;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.cart__layout
+{
+    background-color: rgb(250,250,250);
+    padding: 20px;
+    margin-top: 40px;
+    position: sticky;
+    top: 80px;
+}
+
+.cart__count
+{
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.cart__count span
+{
+    font-weight: bold;
+}
+
+#deleteicon
+{
+    width: 20px;
+}
+
+.cart__bottom h4
+{
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.cart__bottom ul
+{
+    padding: 0;
+    list-style-type: none;
+}
+
+.cart__bottom ul li
+{
+    display: block;
+    line-height: 25px;
+    position: relative;
+    padding-left: 20px;
+    overflow: hidden;
+}
+
+.cart__bottom ul li::before
+{
+    font-family: "Font Awesome";
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    content: "\f178";
+    font-size: 10px;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+}
+
+#row4,#row5,#row2
+{
+    font-size: 13px;
+}
+
+#row5
+{
+    display: inline-block;
+    font-weight: bold;
+    color: blue;
+}
+
+th{
+    font-size: 13px;
+}

@@ -1,0 +1,68 @@
+
+<div class="container">
+  <div class="row">
+      <div class="col-lg-9 col-md-12 col-sm-12">
+          <h2 class="cart__title">Giỏ hàng của bạn</h2> 
+          <div class="cart__layout">
+              <div class="cart__top">
+                  <h2 class="cart__count">Bạn hiện đang có <span>{{ countTotal }} sản phẩm</span> trong giỏ hàng</h2>
+                  <table class="table table-responsive-sm table-borderless table-light">
+                      <thead>
+                        <tr>
+                          <th scope="col">Hình ảnh</th>
+                          <th scope="col">Tên sản phẩm</th>
+                          <th scope="col">Số lượng</th>
+                          <th scope="col">Đơn giá</th>
+                          <th scope="col">Thành tiền</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="loadedCartItem.length === 0">
+                        <tr>
+                            <td rowspan="5" class="text-align: center;">
+                                Giỏ hàng trống
+                            </td>
+                        </tr> 
+                     </tbody>
+                     <tbody *ngIf="loadedCartItem.length > 0">
+                        <tr *ngFor="let item of loadedCartItem; let i = index">
+                            <td><img src="{{ item.productImagePath }}" width="80px"></td>
+                            <td id="row2">{{ item.productName }}</td>
+                            <td>{{ item.qty }}</td>
+                            <td id="row4">{{ item.price | moneypipe }}</td>
+                            <td id="row5">{{ (item.qty * item.price) | moneypipe }}</td>
+                            <td id="row4" (click)="onDeleteItem(i)"><a class="text-danger"><i class="fas fa-trash-alt"></i></a></td> 
+                        </tr>
+                     </tbody>
+                    </table>
+                    <button id="clearbtn" (click)="onClearCart()" class="btn btn-danger">Xóa hết giỏ hàng</button>
+              </div>
+              <div class="cart__bottom">
+                  <h4>Chính sách Đổi/Trả</h4>
+                  <ul>
+                      <li>Sản phẩm được đổi 1 lần duy nhất, không hỗ trợ trả.</li>
+                      <li>Sản phẩm còn đủ tem mác, chưa qua sử dụng.</li>
+                      <li>Sản phẩm nguyên giá được đổi trong 30 ngày trên toàn hệ thống.</li>
+                      <li>Sản phẩm sale chỉ hỗ trợ đổi size (nếu cửa hàng còn) trong 7 ngày trên toàn hệ thống.</li>                     
+                  </ul>
+              </div>
+          </div>  
+      </div>
+      <div class="col-lg-3 col-md-12 col-sm-12">
+          <div class="sidebar__cart">
+    <!--           <a routerLink="/home" class="continue">Tiếp tục mua hàng →</a> -->
+              <div class="cart__order__sum">
+                  <h2 class="order__summary__title">Thông tin đơn hàng</h2>
+                  <div class="summary__total">
+                      <p>Tổng tiền: <span>{{ cartTotal | moneypipe }}</span></p>
+                  </div>
+                  <div class="summary__action">
+                      <p>Bạn có thể nhập mã giảm giá ở trang thanh toán</p>
+                      <a *ngIf="loadedCartItem.length === 0" class="checkout__btn" (click)="onWarning()">THANH TOÁN</a>
+                      <a *ngIf="loadedCartItem.length > 0" class="checkout__btn" routerLink="/checkout">THANH TOÁN</a>
+                  </div>
+              </div>  
+          </div>
+      </div>
+  </div>
+</div>

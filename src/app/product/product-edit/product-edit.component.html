@@ -1,0 +1,112 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-4 col-lg-4 col-md-12 col-sm-12">
+      <form [formGroup]="productForm">
+        <div>
+            <input type="hidden"
+            disabled 
+            #id
+            id="id" 
+            class="form-control"
+            formControlName="id">
+          <div class="form-group">
+            <label for="productname">Product Name</label>
+            <input type="text" 
+                   #productname
+                   id="productname" 
+                   class="form-control"
+                   formControlName="productname">
+            <span
+            *ngIf="!productForm.get('productname').valid && productForm.get('productname').touched"
+            class="help-block text-danger">Tên sản phẩm không được để trống</span>
+          </div>
+          <div class="form-group">
+            <label for="desc">Description</label>
+            <input type="text" 
+                   #desc
+                   id="desc" 
+                   class="form-control"
+                   formControlName="desc">
+            <span
+            *ngIf="!productForm.get('desc').valid && productForm.get('desc').touched"
+            class="help-block text-danger">Mô tả không được để trống</span>
+          </div>
+          <div class="form-group">
+            <label for="brand">Thương hiệu</label>
+            <select #brand id="brand" class="form-control" formControlName="brand">
+                <option *ngFor="let brand of brands" [value]="brand.value">
+                   {{ brand.viewValue }}
+                </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="imagePath">Image Path</label>
+            <input type="text" 
+                   #imagePath
+                   id="imagePath" 
+                   class="form-control"
+                   formControlName="imagePath">
+            <span
+            *ngIf="!productForm.get('imagePath').valid && productForm.get('imagePath').touched"
+            class="help-block text-danger">Hình ảnh không được để trống</span>
+          </div>
+          <div class="form-group">
+            <label for="price">Product Price</label>
+            <input type="number" 
+                   #price
+                   id="price" 
+                   class="form-control"
+                   formControlName="price">
+            <span
+            *ngIf="!productForm.get('price').valid && productForm.get('price').touched"
+            class="help-block text-danger">Giá tiền không được để trống</span>
+          </div>
+        </div>
+        <button [disabled]="!productForm.valid" class="btn btn-primary" (click)="onAddProducts()" type="button">{{ editmode? 'Update Product' : 'Add Product' }}</button>
+<!--         <button class="btn btn-warning" (click)="onSaveProducts()" type="button">Lưu</button> -->
+        <button class="btn btn-success" (click)="onFetchProducts()" type="button">Fetch</button>
+        <button class="btn btn-danger" (click)="onClearProducts()" type="button">Clear</button>
+      </form>
+    </div>
+    <div class="col-xs-8 col-lg-8 col-md-12 col-sm-12">
+      <nav class="navbar">
+          <input id="search" name="nameSearch" [(ngModel)]="nameSearch" type="search" class="form-control" placeholder="Nhập tên sản phẩm">
+      </nav>
+      <table class="table table-responsive-sm table-light">
+        <thead class="thead-dark">
+          <tr>
+            <th (click)="sortByID('id')" scope="col">Id <i class="fas fa-sort"></i></th>
+            <th scope="col">Hình ảnh</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Thương hiệu</th>
+            <th scope="col">Mô tả</th>
+            <th (click)="sortByPrice('price')" scope="col">Giá tiền</th>
+            <th scope="col">Xóa</th>
+            <th scope="col">Sửa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="loadedProduct.length < 1 && !isFetching">
+            <td colspan="5">Không có sản phẩm nào trong hệ thống</td>
+          </tr>
+          <tr *ngFor="let product of loadedProduct | filter: nameSearch | orderBy: keyID: reverse | paginate: {itemsPerPage: 9, currentPage: page} ; index as i">
+            <td scope="row">{{ product.id }}</td>
+            <td><img src="{{ product.imagePath }}" width="80px"></td>
+            <td id="row2">{{ product.productname }}</td>
+            <td>{{ product.brand }}</td>
+            <td>{{ product.desc }}</td>
+            <td id="row4">{{ product.price | moneypipe }}</td>
+            <td id="row4" (click)="onDeleteItem(i)"><a class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
+            <td id="row4" (click)="onEditItem(i)"><a class="text-danger"><i class="fas fa-edit"></i></a></td>
+          </tr>                       
+       </tbody>
+      </table>
+      <div *ngIf="isFetching" class="text-center">
+        <div class="spinner-border text-warning" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>Fetching Products
+      </div>
+      <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
+    </div>
+  </div>
+</div>

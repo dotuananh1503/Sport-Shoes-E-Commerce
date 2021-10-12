@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
+      <form [formGroup]="newsForm">
+        <div>
+            <input type="hidden"
+            disabled 
+            #id
+            id="id" 
+            class="form-control"
+            formControlName="id">
+          <div class="form-group">
+            <label for="title">Tiêu đề</label>
+            <input type="text" 
+                   #title
+                   id="title" 
+                   class="form-control"
+                   formControlName="title">
+            <span
+            *ngIf="!newsForm.get('title').valid && newsForm.get('title').touched"
+            class="help-block text-danger">Tiêu đề không được để trống</span>
+          </div>
+          <div class="form-group">
+            <label for="author">Người viết</label>
+            <input type="text" 
+                   #author
+                   id="author" 
+                   class="form-control"
+                   formControlName="author">
+            <span
+            *ngIf="!newsForm.get('author').valid && newsForm.get('author').touched"
+            class="help-block text-danger">Người viết không được để trống</span>
+          </div>
+          <div class="form-group">
+            <label for="date">Ngày viết</label>
+            <input type="date" 
+                   #date
+                   id="date" 
+                   class="form-control"
+                   formControlName="date">
+          </div>
+          <div class="form-group">
+            <label for="content">Nội dung bài viết</label>
+            <ckeditor type="text"
+                   [editor]="Editor" 
+                   #content
+                   id="content" 
+                   formControlName="content">
+            </ckeditor>      
+          </div>
+
+          <div class="form-group">
+            <label for="imageNews">Hình ảnh đại diện</label>
+            <input type="text" 
+                   #imageNews
+                   id="imageNews" 
+                   class="form-control"
+                   formControlName="imageNews">
+            <span
+            *ngIf="!newsForm.get('imageNews').valid && newsForm.get('imageNews').touched"
+            class="help-block text-danger">Hình ảnh không được để trống</span>
+          </div>
+        </div>
+        <button [disabled]="!newsForm.valid" class="btn btn-primary" (click)="onAddNews()" type="button">{{ editmode? 'Update News' : 'Add News' }}</button>
+<!--         <button class="btn btn-warning" (click)="onSaveProducts()" type="button">Lưu</button> -->
+        <button class="btn btn-success" (click)="onFetchNews()" type="button">Fetch</button>
+        <button class="btn btn-danger" (click)="onClearNews()" type="button">Clear</button>
+      </form>
+
+    </div>
+    <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
+      <!--       <p *ngIf="loadedProduct.length < 1 && !isFetching">No Product available</p> -->
+            <nav class="navbar">
+                <input id="search" type="text" [(ngModel)]="nameSearch" class="form-control" placeholder="Nhập tên sản phẩm">
+            </nav>
+            {{ nameSearch }}
+            <table class="table table-responsive-sm table-light">
+              <thead class="thead-dark">
+                <tr>
+                  <th (click)="sortByID('id')" scope="col">Id</th>
+                  <th scope="col">Hình ảnh</th>
+                  <th scope="col">Bài viết</th>
+                  <th scope="col">Người viết</th>
+                  <th scope="col">Ngày viết</th>
+                  <th scope="col">Nội dung</th>
+                  <th scope="col">Xóa</th>
+                  <th scope="col">Sửa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="loadedNews.length < 1 && !isFetching">
+                  <td colspan="5">Không có tin tức nào trong hệ thống</td>
+                </tr>
+                <tr *ngFor="let product of loadedNews | filter: nameSearch | orderBy: keyID: reverse | paginate: {itemsPerPage: 4, currentPage: page} ; index as i">
+                  <td scope="row">{{ product.id }}</td>
+                  <td><img src="{{ product.imageNews }}" width="80px"></td>
+                  <td id="row2">{{ product.title }}</td>
+                  <td>{{ product.author }}</td>
+                  <td id="row4">{{ product.date | date: "dd-MM-yyyy" }}</td>
+                  <td id="row4">{{ product.content }}</td>
+                  <td id="row4" (click)="onDeleteItem(i)"><a class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
+                  <td id="row4" (click)="onEditItem(i)"><a class="text-danger"><i class="fas fa-edit"></i></a></td>
+                </tr>                       
+             </tbody>
+            </table>
+            <div *ngIf="isFetching" class="text-center">
+              <div class="spinner-border text-warning" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>Fetching Products
+            </div>
+            <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
+          </div>
+  </div>
+</div>

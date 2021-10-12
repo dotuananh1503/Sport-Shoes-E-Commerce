@@ -1,0 +1,78 @@
+.bl-filter [type="checkbox"]:not(:checked) + label, .bl-filter [type="checkbox"]:checked + label {
+    position: relative;
+    padding-left: 22px;
+    cursor: pointer;
+ }
+
+ .bl-filter [type="checkbox"]:not(:checked), .bl-filter [type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+ }
+
+ .layered__subtitle 
+ {
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 10px 0 10px;
+    cursor: pointer;
+    position: relative;
+ }
+
+ .layered__subtitle span
+ {
+    font-weight: 600;
+    font-size: 13px;
+ }
+
+ .layered__subtitle span.icon-control
+ {
+    position: relative;
+    top: -2px;
+    left: 5px;
+    font-size: 8px;
+ }
+
+ .filter-color ul {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+ }
+
+ .check-box-list input[type="checkbox"] {
+    display: none;
+ }
+
+ .filter-color li
+ {
+    display: inline;
+    margin: 0 10px 10px 0;
+    line-height: normal;
+    float: left;
+ }
+
+ .filter-color li label
+ {
+    border: 1px solid #eaeaea;
+    width: 25px;
+    height: 25px;
+    border-radius: 0;
+    float: left;
+    position: relative;
+    background-size: contain;
+ }
+
+ .filter-size li {
+    text-align: center;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    float: left;
+ }
+
+ .filter-size li label {
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    position: relative;
+    border: 1px solid #e5e5e5;
+ }

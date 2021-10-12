@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="row">
+      <div class="col-lg-7 col-md-12 col-sm-12">
+          <h2 class="cart__title">Giỏ hàng của bạn</h2> 
+          <div class="cart__layout">
+            <div class="cart__top">
+                <h2 class="cart__count">Bạn hiện đang có <span>{{ countTotal }} sản phẩm</span> trong giỏ hàng</h2>
+                <table class="table table-responsive-sm table-borderless table-light">
+                    <thead>
+                      <tr>
+                        <th scope="col">Hình ảnh</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Đơn giá</th>
+                        <th scope="col">Thành tiền</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="loadedCartItem.length === 0">
+                      <tr>
+                          <td rowspan="5" class="text-align: center;">
+                              Giỏ hàng trống
+                          </td>
+                      </tr> 
+                   </tbody>
+                   <tbody  *ngIf="loadedCartItem.length > 0">
+                      <tr *ngFor="let item of loadedCartItem">
+                        <td><img src="{{ item.productImagePath }}" width="80px"></td>
+                        <td id="row2">{{ item.productName }}</td>
+                        <td>{{ item.qty }}</td>
+                        <td id="row4">{{ item.price | moneypipe }}</td>
+                        <td id="row5">{{ (item.qty * item.price) | moneypipe }}</td>
+                      </tr>   
+                   </tbody>
+                  </table>
+
+            </div>
+        </div>  
+      </div>
+      <div class="col-lg-5 col-md-12 col-sm-12">
+        <h2 class="cart__title">Thông tin giao hàng</h2> 
+        <form [formGroup]="checkoutForm">
+          <div>
+            <div class="form-group">
+              <label for="customername">Tên khách hàng</label>
+              <input type="text" 
+                     #customername
+                     id="customername" 
+                     class="form-control"
+                     formControlName="customername">
+ <!--              <span
+              *ngIf="!productForm.get('productname').valid && productForm.get('productname').touched"
+              class="help-block">Please enter a valid user name</span> -->
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" 
+                     #email
+                     id="email" 
+                     class="form-control"
+                     [value]="UserName"
+                     formControlName="email">
+            </div>
+            <div class="form-group">
+              <label for="address">Địa chỉ</label>
+              <input type="text" 
+                     #address
+                     id="address" 
+                     class="form-control"
+                     formControlName="address">
+            </div>
+            <div class="form-group">
+              <label for="checkmethod">Phương thức thanh toán</label>
+              <select #checkmethod id="checkmethod" class="form-control" formControlName="checkmethod">
+                  <option *ngFor="let method of checkmethods" [value]="method.value">
+                     {{ method.viewValue }}
+                  </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="note">Ghi chú</label>
+              <input type="text" 
+                     #note
+                     id="note" 
+                     class="form-control"
+                     formControlName="note">
+            </div>
+          </div>
+          <button class="btn btn-primary" (click)="onSendCheckout()" [routerLink]="['/success']" type="button">Thanh toán</button>
+        </form>
+      </div>
+    </div>
+  </div>
